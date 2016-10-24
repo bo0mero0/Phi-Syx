@@ -11,5 +11,6 @@ let phisyxEngine = Engine.create({
 });
 
 round1();
+
 Engine.run(phisyxEngine);
 Render.run(phisyxEngine.render);
