@@ -1,0 +1,34 @@
+{
+  "name": "syx",
+  "homepage": "",
+  "author": "Phi Truong",
+  "description": "== README",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": "5.1.0",
+    "npm": "3.3.12"
+  },
+  "keywords": [
+    "javascript",
+    "canvas",
+    "html5",
+    "physics",
+    "physics engine",
+    "game engine",
+    "rigid body physics"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "./node_modules/.bin/webpack --watch",
+    "postinstall": "./node_modules/.bin/webpack"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-preset-latest": "^6.16.0"
+  }
+}
