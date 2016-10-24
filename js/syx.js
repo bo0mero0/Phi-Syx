@@ -3,7 +3,14 @@ var I = [{x:47,y:13},{x:47,y:72},{x:66,y:72},{x:66,y:13}];
 var N = [{x:28,y:72},{x:28,y:16},{x:44,y:16},{x:56,y:45},{x:56,y:16},{x:71,y:16},{x:71,y:72},{x:58,y:72},{x:44,y:44},{x:43,y:72}];
 var P = [{x:33,y:15},{x:33,y:75},{x:48,y:75},{x:48,y:43},{x:72,y:42},{x:75,y:30},{x:73,y:19},{x:66,y:15},{x:33,y:15},{x:41,y:21},{x:62,y:22},{x:62,y:31},{x:41,y:32},{x:41,y:21}];
 var H = [{x:29,y:12},{x:29,y:70},{x:46,y:70},{x:46,y:51},{x:65,y:51},{x:65,y:70},{x:81,y:70},{x:81,y:12},{x:65,y:12},{x:65,y:33},{x:46,y:33},{x:46,y:12}];
-
+var Y = [{x:31,y:15},{x:49,y:15},{x:58,y:32},{x:66,y:15},{x:85,y:15},{x:65,y:43},{x:65,y:69},{x:52,y:69},{x:52,y:43}];
+var O = [{x:47,y:15},{x:33,y:23},{x:26,y:32},{x:24,y:49},{x:38,y:60},{x:59,y:60},{x:70,y:49},{x:70,y:28},{x:61,y:18},{x:47,y:15},{x:49,y:25},{x:57,y:29},{x:61,y:40},{x:51,y:51},{x:40,y:45},{x:38,y:31},{x:49,y:25}];
+var U = [{x:32,y:16},{x:32,y:58},{x:42,y:70},{x:54,y:73},{x:71,y:73},{x:78,y:70},{x:85,y:58},{x:85,y:16},{x:71,y:16},{x:71,y:51},{x:65,y:58},{x:51,y:58},{x:46,y:51},{x:45,y:16}];
+var R = [{x:33,y:12},{x:33,y:69},{x:47,y:69},{x:47,y:51},{x:59,y:69},{x:72,y:69},{x:56,y:35},{x:73,y:33},{x:75,y:22},{x:73,y:14},{x:33,y:12},{x:45,y:19},{x:61,y:20},{x:61,y:25},{x:45,y:27},{x:45,y:19}];
+var E = [{x:28,y:14},{x:28,y:72},{x:77,y:72},{x:77,y:59},{x:49,y:59},{x:49,y:46},{x:64,y:46},{x:65,y:33},{x:49,y:33},{x:49,y:23},{x:77,y:23},{x:76,y:14}];
+var D = [{x:28,y:18},{x:28,y:71},{x:71,y:71},{x:81,y:63},{x:84,y:44},{x:82,y:31},{x:72,y:19},{x:28,y:18},{x:37,y:28},{x:61,y:29},{x:67,y:41},{x:66,y:53},{x:59,y:56},{x:37,y:55},{x:37,y:28}];
+var C = [{x:80,y:17},{x:43,y:20},{x:35,y:29},{x:30,y:44},{x:32,y:56},{x:40,y:61},{x:56,y:62},{x:80,y:62},{x:80,y:52},{x:63,y:49},{x:50,y:41},{x:53,y:30},{x:80,y:30}];
+var T = [{x:45,y:32},{x:45,y:72},{x:63,y:72},{x:63,y:32},{x:91,y:32},{x:91,y:16},{x:21,y:16},{x:21,y:32}];
 
 let Engine = Matter.Engine;
 let Render = Matter.Render;
@@ -129,7 +136,8 @@ let round2 = function() {
 
 
   let p = Body.create({
-    position: { x: 600, y: 100},
+    name: "P",
+    position: { x: 1300, y: 100},
     vertices: JSON.parse(JSON.stringify(P)),
     mass: 0.0017,
     collisionFilter: {mask: 0x0001},
@@ -137,6 +145,7 @@ let round2 = function() {
   });
 
   let h = Body.create({
+    name: "H",
     position: { x: 1300, y: 200},
     vertices: JSON.parse(JSON.stringify(H)),
     mass: 0.0017,
@@ -144,16 +153,20 @@ let round2 = function() {
   });
 
   let i = Body.create({
-    position: { x: 1400, y: 300},
+    name: "I",
+    position: { x: 1300, y: 300},
     vertices: JSON.parse(JSON.stringify(I)),
     mass: 0.0017,
     collisionFilter: {mask: 0x0001}
   });
 
-  let ground = Bodies.rectangle(800, 500, 1600, 5, { isStatic: true });
-  let ceiling = Bodies.rectangle(800, 0, 1600, 5, { isStatic: true });
-  let wallL = Bodies.rectangle(0, 250, 5, 500, { isStatic: true });
-  let wallR = Bodies.rectangle(1600, 250, 5, 500, { isStatic: true });
+  let platform = Bodies.rectangle(1300, 400, 100, 5, { isStatic: true });
+
+
+  let ground = Bodies.rectangle(800, 500, 1600, 5, { name: "ground", isStatic: true });
+  let ceiling = Bodies.rectangle(800, 0, 1600, 5, { name: "ceiling", isStatic: true });
+  let wallL = Bodies.rectangle(0, 250, 5, 500, { name: "wallL", isStatic: true });
+  let wallR = Bodies.rectangle(1600, 250, 5, 500, { name: "wallR", isStatic: true });
 
   let background = Bodies.rectangle(800, 250, 1600, 500, {
     isStatic: true,
@@ -168,7 +181,7 @@ let round2 = function() {
 
 
   let dragMouse = MouseConstraint.create(round1Engine, { constraint: { stiffness: .4 }});
-  World.add(round1Engine.world, [background, p, h, i, rock, sling, ceiling, wallL, wallR, ground, dragMouse]);
+  World.add(round1Engine.world, [background, platform, p, h, i, rock, sling, ceiling, wallL, wallR, ground, dragMouse]);
 
 
 
@@ -279,30 +292,93 @@ let round2 = function() {
        renderOptions.hasBounds = true;
       //  renderOptions.wireframes = false;
 
-  Events.on(round1Engine, "collisionEnd", (e) => {
-    if (e.pairs[0].bodyA.name === "box A" && e.pairs[0].bodyB.name === "trash") {
-      console.log("collision");
-      let w = Body.create({
-        position: { x: 200, y: 100},
-        vertices: JSON.parse(JSON.stringify(W)),
-        mass: 0.0017
+  let knockP = false;
+  let knockH = false;
+  let knockI = false;
+  let winSpawn = false;
+  Events.on(round1Engine, "collisionStart", (e) => {
+    if (e.pairs[0].bodyA.name === "P" && knockP === false && (e.pairs[0].bodyB.name === "ground" || e.pairs[0].bodyB.name === "wallR")) {
+      knockP = true;
+    } else if (e.pairs[0].bodyA.name === "H" && knockH === false && (e.pairs[0].bodyB.name === "ground" || e.pairs[0].bodyB.name === "wallR")) {
+      knockH = true;
+    } else if (e.pairs[0].bodyA.name === "I" && knockI === false && (e.pairs[0].bodyB.name === "ground" || e.pairs[0].bodyB.name === "wallR")) {
+      knockI = true;
+    } else if (knockP === true && knockH === true && knockI === true && winSpawn === false) {
+      winSpawn = true;
+      let y = Body.create({
+        position: { x: 200, y: 50},
+        vertices: JSON.parse(JSON.stringify(Y)),
+        mass: 0.0017,
+        collisionFilter: {mask: 0x0001}
       });
-      let i = Body.create({
-        position: { x: 400, y: 100},
-        vertices: JSON.parse(JSON.stringify(I)),
-        mass: 0.0017
+      let o = Body.create({
+        position: { x: 250, y: 50},
+        vertices: JSON.parse(JSON.stringify(O)),
+        mass: 0.0017,
+        collisionFilter: {mask: 0x0001}
+      });
+      let u = Body.create({
+        position: { x: 300, y: 50},
+        vertices: JSON.parse(JSON.stringify(U)),
+        mass: 0.0017,
+        collisionFilter: {mask: 0x0001}
+      });
+      let quote = Bodies.rectangle(325, 50, 10, 20, {collisionFilter: {mask: 0x0001}});
+      let r = Body.create({
+        position: { x: 375, y: 50},
+        vertices: JSON.parse(JSON.stringify(R)),
+        mass: 0.0017,
+        collisionFilter: {mask: 0x0001}
+      });
+      let e2 = Body.create({
+        position: { x: 425, y: 50},
+        vertices: JSON.parse(JSON.stringify(E)),
+        mass: 0.0017,
+        collisionFilter: {mask: 0x0001}
+      });
+      let d = Body.create({
+        position: { x: 600, y: 50},
+        vertices: JSON.parse(JSON.stringify(D)),
+        mass: 0.0017,
+        collisionFilter: {mask: 0x0001}
+      });
+      let e3 = Body.create({
+        position: { x: 650, y: 50},
+        vertices: JSON.parse(JSON.stringify(E)),
+        mass: 0.0017,
+        collisionFilter: {mask: 0x0001}
+      });
+      let c = Body.create({
+        position: { x: 700, y: 50},
+        vertices: JSON.parse(JSON.stringify(C)),
+        mass: 0.0017,
+        collisionFilter: {mask: 0x0001}
+      });
+      let e4 = Body.create({
+        position: { x: 750, y: 50},
+        vertices: JSON.parse(JSON.stringify(E)),
+        mass: 0.0017,
+        collisionFilter: {mask: 0x0001}
       });
       let n = Body.create({
-        position: { x: 600, y: 100},
+        position: { x: 800, y: 50},
         vertices: JSON.parse(JSON.stringify(N)),
-        mass: 0.0017
+        mass: 0.0017,
+        collisionFilter: {mask: 0x0001}
       });
-      World.add(round1Engine.world, [w, i, n]);
-      window.setTimeout(() => {
-        World.clear(round1Engine.world, false);
-          round1();
-      }, 3000);
+      let t = Body.create({
+        position: { x: 850, y: 50},
+        vertices: JSON.parse(JSON.stringify(T)),
+        mass: 0.0017,
+        collisionFilter: {mask: 0x0001}
+      });
+      World.add(round1Engine.world, [y, o, u, quote, r, e2, d, e3, c, e4, n, t]);
+      // window.setTimeout(() => {
+      //   World.clear(round1Engine.world, false);
+      //
+      // }, 3000);
     }
+
   });
 
 };
