@@ -59,7 +59,7 @@ let round3 = function() {
         xScale: .17,
         yScale: .17
         ,
-        texture: 'images/shield.png'
+        texture: './images/shield.png'
       }
     }
   });
@@ -74,7 +74,7 @@ let round3 = function() {
     collisionFilter: { category: 0x0002 },
     render: {
       sprite: {
-        texture: 'images/round3Background.jpg'
+        texture: './images/round3Background.jpg'
       }
     }
   });
@@ -85,11 +85,11 @@ let round3 = function() {
   World.add(phisyxEngine.world, [background, shield, platform1, platform2, platform3, p, h, i, rock, sling, ceiling, wallL, wallR, ground, dragMouse]);
 
 
-  // Events.on(phisyxEngine, 'beforeUpdate', function(event) {
-  //   let py = 300 + 150 * Math.sin(phisyxEngine.timing.timestamp * 0.002);
-  //   Body.setVelocity(shield, { x: 0, y: py - shield.position.y });
-  //   Body.setPosition(shield, { x: 1000, y: py - 50 });
-  // })
+  Events.on(phisyxEngine, 'beforeUpdate', function(event) {
+    let py = 300 + 150 * Math.sin(phisyxEngine.timing.timestamp * 0.002);
+    Body.setVelocity(shield, { x: 0, y: py - shield.position.y });
+    Body.setPosition(shield, { x: 1000, y: py - 50 });
+  })
   Events.on(phisyxEngine, 'afterUpdate', function() {
     if (dragMouse.mouse.button === -1 && (rock.position.x > 350 || rock.position.y < 380)) {
       let rock2 = rock;
@@ -102,7 +102,7 @@ let round3 = function() {
           sprite: {
             xScale: .5,
             yScale: .5,
-            texture: './images/spear.png'
+            texture: 'images/spear.png'
           }
         } });
         Body.rotate(rock, 3);
