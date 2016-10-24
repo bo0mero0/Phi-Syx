@@ -113,7 +113,7 @@ Render.run(round1Engine.render);
 
 let round2 = function() {
 
-  round1Engine.render.options.background = '#85f74c'
+  round1Engine.render.options.background = '#85f74c';
   let rock = Bodies.circle(200, 400, 20, {name: "rock", render: {
           sprite: {
             xScale: .2,
@@ -127,7 +127,7 @@ let round2 = function() {
   let sling = Constraint.create({
       pointA: slingPoint,
       bodyB: rock,
-      stiffness: 0.2,
+      stiffness: 0.3,
       render: {
           lineWidth: 3,
           strokeStyle: '#dfa417'
