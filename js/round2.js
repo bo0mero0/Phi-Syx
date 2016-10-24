@@ -267,6 +267,7 @@ let round2 = function() {
           Events.off(phisyxEngine, "collisionStart");
           Events.off(phisyxEngine, "beforeTick");
           Events.off(phisyxEngine, "afterUpdate");
+          Events.off(dragMouse, "mousedown");
           World.clear(phisyxEngine.world, false);
           round3();
         }, 3000);
