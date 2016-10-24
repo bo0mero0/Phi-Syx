@@ -1,20 +1,20 @@
 let round3 = function() {
 
   phisyxEngine.render.options.background = '#000000';
-  let rock = Bodies.rectangle(300, 400, 200, 10, {name: "rock", render: {
+  let spear = Bodies.rectangle(300, 400, 200, 10, {name: "spear", render: {
           sprite: {
             xScale: .5,
             yScale: .5,
             texture: './images/spear.png'
           }
         } });
-  Body.rotate(rock, 3);
-  rock.collisionFilter.mask = 0x0001;
-  // rock.mass = 10;
+  Body.rotate(spear, 3);
+  spear.collisionFilter.mask = 0x0001;
+  // spear.mass = 10;
   let slingPoint = { x: 300, y: 400 };
   let sling = Constraint.create({
       pointA: slingPoint,
-      bodyB: rock,
+      bodyB: spear,
       stiffness: 0.3,
       render: {
           lineWidth: 3,
@@ -25,34 +25,35 @@ let round3 = function() {
 
   let p = Body.create({
     name: "P",
-    position: { x: 1300, y: 100},
+    position: { x: 1400, y: 100},
     vertices: JSON.parse(JSON.stringify(P)),
     mass: 0.0017,
     collisionFilter: {mask: 0x0001},
     render: {fillStyle:'#000000'}
   });
 
-  let platform1 = Bodies.rectangle(1300, 130, 100, 5, { isStatic: true });
+  let platform1 = Bodies.rectangle(1400, 130, 100, 5, { isStatic: true });
 
   let h = Body.create({
     name: "H",
-    position: { x: 1300, y: 200},
+    position: { x: 1400, y: 200},
     vertices: JSON.parse(JSON.stringify(H)),
     mass: 0.0017,
     collisionFilter: {mask: 0x0001}
   });
 
-  let platform2 = Bodies.rectangle(1300, 230, 100, 5, { isStatic: true });
+  let platform2 = Bodies.rectangle(1400, 230, 100, 5, { isStatic: true });
 
   let i = Body.create({
     name: "I",
-    position: { x: 1300, y: 300},
+    position: { x: 1400, y: 300},
     vertices: JSON.parse(JSON.stringify(I)),
     mass: 0.0017,
     collisionFilter: {mask: 0x0001}
   });
 
-  let platform3 = Bodies.rectangle(1300, 330, 100, 2, { isStatic: true });
+  let platform3 = Bodies.rectangle(1400, 330, 100, 2, { isStatic: true });
+
   let shield = Bodies.rectangle(1000, 330, 5, 100, { isStatic: true,
     render: {
       sprite: {
@@ -82,7 +83,7 @@ let round3 = function() {
 
 
   let dragMouse = MouseConstraint.create(phisyxEngine, { constraint: { stiffness: .4 }});
-  World.add(phisyxEngine.world, [background, shield, platform1, platform2, platform3, p, h, i, rock, sling, ceiling, wallL, wallR, ground, dragMouse]);
+  World.add(phisyxEngine.world, [background, shield, platform1, platform2, platform3, p, h, i, spear, sling, ceiling, wallL, wallR, ground, dragMouse]);
 
 
   Events.on(phisyxEngine, 'beforeUpdate', function(event) {
@@ -91,24 +92,24 @@ let round3 = function() {
     Body.setPosition(shield, { x: 1000, y: py - 50 });
   })
   Events.on(phisyxEngine, 'afterUpdate', function() {
-    if (dragMouse.mouse.button === -1 && (rock.position.x > 350 || rock.position.y < 380)) {
-      let rock2 = rock;
+    if (dragMouse.mouse.button === -1 && (spear.position.x > 350 || spear.position.y < 380)) {
+      let rock2 = spear;
       Events.on(dragMouse, "mousedown", (e) => {
         console.log("phi mouse down");
         rock2.isStatic = true;
       });
 
-        rock = Bodies.rectangle(300, 400, 200, 10, {name: "rock2", render: {
+        spear = Bodies.rectangle(300, 400, 200, 10, {name: "rock2", render: {
           sprite: {
             xScale: .5,
             yScale: .5,
             texture: 'images/spear.png'
           }
         } });
-        Body.rotate(rock, 3);
-        rock.collisionFilter.mask = 0x0001;
-        World.add(phisyxEngine.world, rock);
-        sling.bodyB = rock;
+        Body.rotate(spear, 3);
+        spear.collisionFilter.mask = 0x0001;
+        World.add(phisyxEngine.world, spear);
+        sling.bodyB = spear;
     }
   });
 

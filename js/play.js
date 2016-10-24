@@ -5,11 +5,11 @@ let phisyxEngine = Engine.create({
     options: { width: 800, height: 500,
                showPositions: true,
                showCollisions: true,
-               background: 'images/syx_Background.png',
+               background: './images/syx_Background.png',
                wireframes: false}
   }
 });
 
-round3();
+round1();
 Engine.run(phisyxEngine);
 Render.run(phisyxEngine.render);
