@@ -264,6 +264,9 @@ let round2 = function() {
       window.setTimeout(() => {
         phisyxEngine.timing.timeScale = 1;
         window.setTimeout(() => {
+          Events.off(phisyxEngine, "collisionStart");
+          Events.off(phisyxEngine, "beforeTick");
+          Events.off(phisyxEngine, "afterUpdate");
           World.clear(phisyxEngine.world, false);
           round3();
         }, 3000);
