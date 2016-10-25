@@ -8,7 +8,7 @@ let round2 = function() {
             texture: 'http://vignette3.wikia.nocookie.net/spore/images/7/7b/A_Freaking_Rock.png/revision/latest?cb=20080716163511'
           }
         } });
-  rock.collisionFilter.mask = 0x0001;
+  rock.collisionFilter.mask = 0x0001 | 0x0004;
   // rock.mass = 10;
   let slingPoint = { x: 200, y: 400 };
   let sling = Constraint.create({
@@ -68,17 +68,14 @@ let round2 = function() {
 
 
   let dragMouse = MouseConstraint.create(phisyxEngine, { constraint: { stiffness: .4 }});
+  dragMouse.collisionFilter.category = 0x0004
   World.add(phisyxEngine.world, [background, platform, p, h, i, rock, sling, ceiling, wallL, wallR, ground, dragMouse]);
 
 
 
   Events.on(phisyxEngine, 'afterUpdate', function() {
     if (dragMouse.mouse.button === -1 && (rock.position.x > 250 || rock.position.y < 380)) {
-      let rock2 = rock;
-      Events.on(dragMouse, "mousedown", (e) => {
-        console.log("phi mouse down");
-        rock2.isStatic = true;
-      });
+      rock.collisionFilter.mask = 0x0001;
 
         rock = Bodies.polygon(200, 400, 7, 20, {name: "rock2", render: {
           sprite: {
@@ -87,7 +84,7 @@ let round2 = function() {
             texture: 'http://vignette3.wikia.nocookie.net/spore/images/7/7b/A_Freaking_Rock.png/revision/latest?cb=20080716163511'
           }
         } });
-        rock.collisionFilter.mask = 0x0001;
+        rock.collisionFilter.mask = 0x0001 | 0x0004;
         World.add(phisyxEngine.world, rock);
         sling.bodyB = rock;
     }
@@ -267,7 +264,6 @@ let round2 = function() {
           Events.off(phisyxEngine, "collisionStart");
           Events.off(phisyxEngine, "beforeTick");
           Events.off(phisyxEngine, "afterUpdate");
-          Events.off(dragMouse, "mousedown");
           World.clear(phisyxEngine.world, false);
           round3();
         }, 3000);

@@ -9,7 +9,7 @@ let round3 = function() {
           }
         } });
   Body.rotate(spear, 3);
-  spear.collisionFilter.mask = 0x0001;
+  spear.collisionFilter.mask = 0x0001 | 0x0004;
   // spear.mass = 10;
   let slingPoint = { x: 300, y: 400 };
   let sling = Constraint.create({
@@ -72,7 +72,7 @@ let round3 = function() {
 
   let background = Bodies.rectangle(800, 250, 1600, 500, {
     isStatic: true,
-    collisionFilter: { category: 0x0002 },
+    collisionFilter: { category: 0x0032 },
     render: {
       sprite: {
         texture: './images/round3Background.jpg'
@@ -83,6 +83,8 @@ let round3 = function() {
 
 
   let dragMouse = MouseConstraint.create(phisyxEngine, { constraint: { stiffness: .4 }});
+  dragMouse.collisionFilter.category = 0x0004;
+
   World.add(phisyxEngine.world, [background, shield, platform1, platform2, platform3, p, h, i, spear, sling, ceiling, wallL, wallR, ground, dragMouse]);
 
 
@@ -93,11 +95,7 @@ let round3 = function() {
   })
   Events.on(phisyxEngine, 'afterUpdate', function() {
     if (dragMouse.mouse.button === -1 && (spear.position.x > 350 || spear.position.y < 380)) {
-      let rock2 = spear;
-      Events.on(dragMouse, "mousedown", (e) => {
-        console.log("phi mouse down");
-        rock2.isStatic = true;
-      });
+      spear.collisionFilter.mask = 0x0001;
 
         spear = Bodies.rectangle(300, 400, 200, 10, {name: "rock2", render: {
           sprite: {
@@ -107,7 +105,7 @@ let round3 = function() {
           }
         } });
         Body.rotate(spear, 3);
-        spear.collisionFilter.mask = 0x0001;
+        spear.collisionFilter.mask = 0x0001 | 0x0004;
         World.add(phisyxEngine.world, spear);
         sling.bodyB = spear;
     }

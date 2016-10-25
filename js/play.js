@@ -10,7 +10,8 @@ let phisyxEngine = Engine.create({
   }
 });
 
-round1();
+heading();
+round3();
 
 Engine.run(phisyxEngine);
 Render.run(phisyxEngine.render);
