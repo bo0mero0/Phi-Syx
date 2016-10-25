@@ -130,8 +130,8 @@ let round2 = function() {
 
           // translate so zoom is from centre of view
           translate = {
-              x: render.options.width * scaleFactor * -0.5,
-              y: render.options.height * scaleFactor * -0.5
+              x: render.options.width * scaleFactor * -1,
+              y: render.options.height * scaleFactor * -1
           };
 
           Bounds.translate(render.bounds, translate);

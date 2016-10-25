@@ -5,7 +5,6 @@ let phisyxEngine = Engine.create({
     options: { width: 800, height: 500,
                showPositions: true,
                showCollisions: true,
-               background: './images/syx_Background.png',
                wireframes: false}
   }
 });
@@ -13,7 +12,7 @@ let phisyxEngine = Engine.create({
 let dragMouse;
 
 heading();
-round1();
+round4();
 
 Engine.run(phisyxEngine);
 Render.run(phisyxEngine.render);

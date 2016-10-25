@@ -11,7 +11,7 @@ let heading = function() {
                  wireframes: false}
     }
   });
-  headingEngine.world.gravity.y = -1;
+  headingEngine.world.gravity.y = -1.5;
 
   let headingP = Body.create({
     name: "P",
@@ -57,7 +57,7 @@ let ground = Bodies.rectangle(400, 200, 810, 10, { isStatic: true, render: {opac
 let midshelf = Bodies.rectangle(350, 100, 700, 10, { name: "midshelf",isStatic: true, render: {opacity: .5} });
 Body.rotate(midshelf, 3.05);
 let midshelfBlock = Bodies.rectangle(700, 25, 10, 70, { name: "midselfBlock", isStatic: true, render: {opacity: .5} });
-let headingSelector = Bodies.rectangle(750, 0, 100, 10, { name: "selector", isStatic: true, render: {opacity: .5} });
+let headingSelector = Bodies.rectangle(750, 0, 100, 20, { name: "selector", isStatic: true, render: {opacity: .5} });
 
 let ceiling = Bodies.rectangle(400, 0, 800, 5, { name: "ceiling", isStatic: true, render: {opacity: 0} });
 let wallL = Bodies.rectangle(0, 100, 5, 200, { name: "wallL", isStatic: true, render: {opacity: 0} });
@@ -76,13 +76,15 @@ World.add(headingEngine.world, [ceiling, round1Bubble, round2Bubble, round3Bubbl
                                 headingX, headingMouse]);      
 
 
-let currentRound = 0;
+let currentRound = 1;
 Events.on(headingEngine, "collisionStart", (e) => {
+  if (e.pairs[0].bodyA.name === "selector") {console.log(e.pairs[0].bodyA.name);}
+  if (e.pairs[0].bodyA.name === "bubble") {console.log(e.pairs[0].bodyB.name);}
   if (e.pairs[0].bodyA.name === "selector" && e.pairs[0].bodyB.name === "bubble") {
     if (currentRound !== e.pairs[0].bodyB.round) {
       currentRound = e.pairs[0].bodyB.round
       Events.off(phisyxEngine);
-      Events.off(dragMouse);
+      // Events.off(dragMouse);
       World.clear(phisyxEngine.world, false);
       switch (e.pairs[0].bodyB.round) {
         case 1:

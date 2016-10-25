@@ -1,21 +1,3 @@
-var W = [{x:26,y:20},{x:38,y:69},{x:51,y:53},{x:64,y:69},{x:79,y:20},{x:67,y:20},{x:62,y:40},{x:51,y:30},{x:43,y:40},{x:39,y:20}];
-var I = [{x:47,y:13},{x:47,y:72},{x:66,y:72},{x:66,y:13}];
-var N = [{x:28,y:72},{x:28,y:16},{x:44,y:16},{x:56,y:45},{x:56,y:16},{x:71,y:16},{x:71,y:72},{x:58,y:72},{x:44,y:44},{x:43,y:72}];
-var P = [{x:33,y:15},{x:33,y:75},{x:48,y:75},{x:48,y:43},{x:72,y:42},{x:75,y:30},{x:73,y:19},{x:66,y:15},{x:33,y:15},{x:41,y:21},{x:62,y:22},{x:62,y:31},{x:41,y:32},{x:41,y:21}];
-var H = [{x:29,y:12},{x:29,y:70},{x:46,y:70},{x:46,y:51},{x:65,y:51},{x:65,y:70},{x:81,y:70},{x:81,y:12},{x:65,y:12},{x:65,y:33},{x:46,y:33},{x:46,y:12}];
-var Y = [{x:31,y:15},{x:49,y:15},{x:58,y:32},{x:66,y:15},{x:85,y:15},{x:65,y:43},{x:65,y:69},{x:52,y:69},{x:52,y:43}];
-var O = [{x:47,y:15},{x:33,y:23},{x:26,y:32},{x:24,y:49},{x:38,y:60},{x:59,y:60},{x:70,y:49},{x:70,y:28},{x:61,y:18},{x:47,y:15},{x:49,y:25},{x:57,y:29},{x:61,y:40},{x:51,y:51},{x:40,y:45},{x:38,y:31},{x:49,y:25}];
-var U = [{x:32,y:16},{x:32,y:58},{x:42,y:70},{x:54,y:73},{x:71,y:73},{x:78,y:70},{x:85,y:58},{x:85,y:16},{x:71,y:16},{x:71,y:51},{x:65,y:58},{x:51,y:58},{x:46,y:51},{x:45,y:16}];
-var R = [{x:33,y:12},{x:33,y:69},{x:47,y:69},{x:47,y:51},{x:59,y:69},{x:72,y:69},{x:56,y:35},{x:73,y:33},{x:75,y:22},{x:73,y:14},{x:33,y:12},{x:45,y:19},{x:61,y:20},{x:61,y:25},{x:45,y:27},{x:45,y:19}];
-var E = [{x:28,y:14},{x:28,y:72},{x:77,y:72},{x:77,y:59},{x:49,y:59},{x:49,y:46},{x:64,y:46},{x:65,y:33},{x:49,y:33},{x:49,y:23},{x:77,y:23},{x:76,y:14}];
-var D = [{x:28,y:18},{x:28,y:71},{x:71,y:71},{x:81,y:63},{x:84,y:44},{x:82,y:31},{x:72,y:19},{x:28,y:18},{x:37,y:28},{x:61,y:29},{x:67,y:41},{x:66,y:53},{x:59,y:56},{x:37,y:55},{x:37,y:28}];
-var C = [{x:80,y:17},{x:43,y:20},{x:35,y:29},{x:30,y:44},{x:32,y:56},{x:40,y:61},{x:56,y:62},{x:80,y:62},{x:80,y:52},{x:63,y:49},{x:50,y:41},{x:53,y:30},{x:80,y:30}];
-var T = [{x:45,y:32},{x:45,y:72},{x:63,y:72},{x:63,y:32},{x:91,y:32},{x:91,y:16},{x:21,y:16},{x:21,y:32}];
-var S = [{x:76,y:13},{x:46,y:13},{x:33,y:16},{x:27,y:26},{x:29,y:37},{x:42,y:43},{x:57,y:47},{x:61,y:52},{x:58,y:59},{x:47,y:62},{x:26,y:63},{x:26,y:73},{x:59,y:72},{x:75,y:64},{x:77,y:48},{x:69,y:35},{x:47,y:28},{x:49,y:23},{x:76,y:23}];
-var Y = [{x:31,y:15},{x:49,y:15},{x:58,y:32},{x:66,y:15},{x:85,y:15},{x:65,y:43},{x:65,y:69},{x:52,y:69},{x:52,y:43}];
-var X = [{x:32,y:20},{x:47,y:20},{x:58,y:38},{x:65,y:20},{x:82,y:20},{x:64,y:46},{x:82,y:68},{x:65,y:68},{x:58,y:50},{x:47,y:68},{x:32,y:68},{x:52,y:46}];
-
-
 let Engine = Matter.Engine;
 let Render = Matter.Render;
 let World = Matter.World;
@@ -33,6 +15,12 @@ let roundEnd = false;
 
 
 let round1 = function() {
+
+dragMouse = MouseConstraint.create(phisyxEngine);
+phisyxEngine.render.bounds.max = {x: 800, y: 500};
+phisyxEngine.render.bounds.min = {x: 0, y: 0};
+phisyxEngine.render.options.background= './images/syx_Background.png';
+
 
 let bubble = Bodies.circle(200, 200, 30, {mass: 1,name: "bubble", render:  {sprite: {xScale: .25, yScale: .25, texture: './images/paper_ball.png'}}});
 let bubble2 = Bodies.circle(200, 200, 30)
@@ -56,9 +44,7 @@ let wallL = Bodies.rectangle(30, 300, 5, 600, { isStatic: true, render: {opacity
 let wallR = Bodies.rectangle(767, 300, 5, 600, { isStatic: true, render: {opacity: 0} });
 let trapezoid = Bodies.trapezoid(100, 100, 100, 100, 3);
 
-dragMouse = MouseConstraint.create(phisyxEngine);
-World.add(phisyxEngine.world, [trashWall, goal, boxC, ceiling, wallL, wallR, trapezoid, bubble, bubble2, boxB, ground, trash, dragMouse]);      
-
+World.add(phisyxEngine.world, [trashWall, goal, boxC, ceiling, wallL, wallR, trapezoid, bubble, bubble2, boxB, ground, trash, dragMouse]);
 
 Events.on(dragMouse, "mousedown", (e) => {
   console.log("phi mouse down");
