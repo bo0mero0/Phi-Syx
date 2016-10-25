@@ -67,7 +67,7 @@ let round2 = function() {
 
 
 
-  let dragMouse = MouseConstraint.create(phisyxEngine, { constraint: { stiffness: .4 }});
+  dragMouse = MouseConstraint.create(phisyxEngine, { constraint: { stiffness: .4 }});
   dragMouse.collisionFilter.category = 0x0004
   World.add(phisyxEngine.world, [background, platform, p, h, i, rock, sling, ceiling, wallL, wallR, ground, dragMouse]);
 
