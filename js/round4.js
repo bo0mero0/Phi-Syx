@@ -26,8 +26,10 @@ const letters = {	A: { name: "a", pos: -390, vertices: A, mask: 0x0002, group: -
                 Z: { name: "z",	pos: -390, vertices: Z, mask: 0x0004, group: 2 }
 };
 
-let round4 = function() {
+let timeInterval;
+let startTimeout;
 
+let round4 = function() {
 dragMouse = MouseConstraint.create(phisyxEngine);
 phisyxEngine.render.bounds.max = {x: 800, y: 500};
 phisyxEngine.render.bounds.min = {x: 0, y: 0};
@@ -88,7 +90,7 @@ function addLetter(letter) {
 
 World.add(phisyxEngine.world, [ceiling, wallL, wallR, ground, dragMouse]);
 
-$(document).keypress(function(e) {
+$(document).on("keypress", function(e) {
   var key = String.fromCharCode(e.which).toUpperCase();
   if(Object.keys(letters).includes(key)){
     addLetter(key);
@@ -103,30 +105,32 @@ $(document).keypress(function(e) {
 //   }
 // });
 let time = 300;
-let timeInterval = window.setInterval(() => {
-  let letterArr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let randLetter = letterArr[Math.floor(Math.random() * 25)];
-  let fallingLetter = Body.create({
-                        name: "gameLetter",
-                        letterType: "falling",
-                        letterChar: randLetter,
-                    		position: {
-                    			x: phisyxEngine.render.options.width / 2 + letters[randLetter].pos,
-                    			y: 30
-                    		},
-                    		vertices: JSON.parse(JSON.stringify(letters[randLetter].vertices)),
-                    		mass: 10000,
-                    		friction: 0,
-                    		restitution: 1
-  });
-  // fallingLetter.timeScale = .1;
-  Body.scale(fallingLetter, .5, .5);
-  World.add(phisyxEngine.world, fallingLetter);
-  window.setTimeout(() => {
-    fallingLetter.timeScale = .1
-    // debugger
-     console.log("hello");}, 100)
-}, time);
+startTimeout = window.setTimeout(() => {
+  timeInterval = window.setInterval(() => {
+    let letterArr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let randLetter = letterArr[Math.floor(Math.random() * 25)];
+    let fallingLetter = Body.create({
+                          name: "gameLetter",
+                          letterType: "falling",
+                          letterChar: randLetter,
+                      		position: {
+                      			x: phisyxEngine.render.options.width / 2 + letters[randLetter].pos,
+                      			y: 30
+                      		},
+                      		vertices: JSON.parse(JSON.stringify(letters[randLetter].vertices)),
+                      		mass: 10000,
+                      		friction: 0,
+                      		restitution: 1
+    });
+    // fallingLetter.timeScale = .1;
+    Body.scale(fallingLetter, .5, .5);
+    World.add(phisyxEngine.world, fallingLetter);
+    window.setTimeout(() => {
+      fallingLetter.timeScale = .1
+      // debugger
+       console.log("hello");}, 100)
+  }, time);
+}, 3000);
 let score = 0
 Events.on(phisyxEngine, "collisionStart", (e) => {
   if (e.pairs[0].bodyA.name === "ground" && e.pairs[0].bodyB.letterType === "falling") {
