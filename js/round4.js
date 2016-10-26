@@ -102,7 +102,7 @@ $(document).keypress(function(e) {
 //     addLetter(key);
 //   }
 // });
-let time = 700;
+let time = 300;
 let timeInterval = window.setInterval(() => {
   let letterArr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let randLetter = letterArr[Math.floor(Math.random() * 25)];
@@ -122,8 +122,11 @@ let timeInterval = window.setInterval(() => {
   // fallingLetter.timeScale = .1;
   Body.scale(fallingLetter, .5, .5);
   World.add(phisyxEngine.world, fallingLetter);
-  window.setTimeout(() => {fallingLetter.timeScale = .01;}, 100)
-}, time)
+  window.setTimeout(() => {
+    fallingLetter.timeScale = .1
+    // debugger
+     console.log("hello");}, 100)
+}, time);
 let score = 0
 Events.on(phisyxEngine, "collisionStart", (e) => {
   if (e.pairs[0].bodyA.name === "ground" && e.pairs[0].bodyB.letterType === "falling") {
