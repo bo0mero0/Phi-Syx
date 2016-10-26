@@ -1236,7 +1236,7 @@ var Body = require('./Body');
         var objects = [].concat(object);
 
         Events.trigger(composite, 'beforeAdd', { object: object });
-
+      
         for (var i = 0; i < objects.length; i++) {
             var obj = objects[i];
 
