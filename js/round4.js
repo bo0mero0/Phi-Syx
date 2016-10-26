@@ -60,6 +60,7 @@ function addLetter(letter) {
   let letterBody = Body.create({
                         name: "gameLetter",
                         letterType: "shooting",
+                        letterChar: letter,
                         letter: letter,
                     		position: {
                     			x: phisyxEngine.render.options.width / 2 + letters[letter].pos,
@@ -107,12 +108,13 @@ window.setInterval(() => {
   let fallingLetter = Body.create({
                         name: "gameLetter",
                         letterType: "falling",
+                        letterChar: randLetter,
                     		position: {
                     			x: phisyxEngine.render.options.width / 2 + letters[randLetter].pos,
                     			y: 30
                     		},
                     		vertices: JSON.parse(JSON.stringify(letters[randLetter].vertices)),
-                    		mass: 0.0017,
+                    		mass: 10000,
                     		friction: 0,
                     		restitution: 1
   });
@@ -122,11 +124,21 @@ window.setInterval(() => {
 
 Events.on(phisyxEngine, "collisionStart", (e) => {
   if (e.pairs[0].bodyA.name === "gameLetter" && e.pairs[0].bodyB.name === "gameLetter") {
-    World.remove(phisyxEngine.world, [e.pairs[0].bodyA, e.pairs[0].bodyB]);
-    // window.setTimeout(() => {
-    //   roundEnd = false;
-    //     round2();
-    // }, 3000);
+    if (e.pairs[0].bodyA.letterType !== e.pairs[0].bodyB.letterType && e.pairs[0].bodyA.letterChar === e.pairs[0].bodyB.letterChar) {
+      World.remove(phisyxEngine.world, [e.pairs[0].bodyA, e.pairs[0].bodyB]);
+      // window.setTimeout(() => {
+      //   roundEnd = false;
+      //     round2();
+      // }, 3000);
+    } else {
+      if (e.pairs[0].bodyA.letterType === "shooting") {
+        e.pairs[0].bodyA.collisionFilter.category = 0x0001;
+        World.remove(phisyxEngine.world, [e.pairs[0].bodyA]);
+      } else if (e.pairs[0].bodyB.letterType === "shooting") {
+        e.pairs[0].bodyB.collisionFilter.category = 0x0001;
+        World.remove(phisyxEngine.world, [e.pairs[0].bodyB]);
+      }
+    }
   }
 });
 
