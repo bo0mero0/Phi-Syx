@@ -35,7 +35,7 @@ phisyxEngine.render.options.background= './images/syx_Background.png';
 
 
 
-let ground = Bodies.rectangle(400, 500, 810, 5, { isStatic: true, render: {opacity: 0} });
+let ground = Bodies.rectangle(400, 500, 810, 5, { name: "ground", isStatic: true, render: {opacity: 0} });
 let ceiling = Bodies.rectangle(400, 0, 800, 5, { isStatic: true, render: {opacity: 0} });
 let wallL = Bodies.rectangle(0, 300, 5, 600, { isStatic: true, render: {opacity: 0} });
 let wallR = Bodies.rectangle(800, 300, 5, 600, { isStatic: true, render: {opacity: 0} });
@@ -103,7 +103,7 @@ $(document).keypress(function(e) {
 //   }
 // });
 let time = 700;
-window.setInterval(() => {
+let timeInterval = window.setInterval(() => {
   let letterArr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let randLetter = letterArr[Math.floor(Math.random() * 25)];
   let fallingLetter = Body.create({
@@ -119,26 +119,33 @@ window.setInterval(() => {
                     		friction: 0,
                     		restitution: 1
   });
-  fallingLetter.timeScale = .1;
+  // fallingLetter.timeScale = .1;
   Body.scale(fallingLetter, .5, .5);
   World.add(phisyxEngine.world, fallingLetter);
+  window.setTimeout(() => {fallingLetter.timeScale = .01;}, 100)
 }, time)
-
+let score = 0
 Events.on(phisyxEngine, "collisionStart", (e) => {
-  if (e.pairs[0].bodyA.name === "gameLetter" && e.pairs[0].bodyB.name === "gameLetter") {
-    if (e.pairs[0].bodyA.letterType !== e.pairs[0].bodyB.letterType && e.pairs[0].bodyA.letterChar === e.pairs[0].bodyB.letterChar) {
-      World.remove(phisyxEngine.world, [e.pairs[0].bodyA, e.pairs[0].bodyB]);
-      // window.setTimeout(() => {
-      //   roundEnd = false;
-      //     round2();
-      // }, 3000);
-    } else {
-      if (e.pairs[0].bodyA.letterType === "shooting") {
-        e.pairs[0].bodyA.collisionFilter.category = 0x0001;
-        World.remove(phisyxEngine.world, [e.pairs[0].bodyA]);
-      } else if (e.pairs[0].bodyB.letterType === "shooting") {
-        e.pairs[0].bodyB.collisionFilter.category = 0x0001;
-        World.remove(phisyxEngine.world, [e.pairs[0].bodyB]);
+  if (e.pairs[0].bodyA.name === "ground" && e.pairs[0].bodyB.letterType === "falling") {
+    window.clearInterval(timeInterval);
+    World.clear(phisyxEngine.world, false);
+  } else {
+    if (e.pairs[0].bodyA.name === "gameLetter" && e.pairs[0].bodyB.name === "gameLetter") {
+      if (e.pairs[0].bodyA.letterType !== e.pairs[0].bodyB.letterType && e.pairs[0].bodyA.letterChar === e.pairs[0].bodyB.letterChar) {
+        World.remove(phisyxEngine.world, [e.pairs[0].bodyA, e.pairs[0].bodyB]);
+        $('.score').text(`${score += 1}`);
+        // window.setTimeout(() => {
+        //   roundEnd = false;
+        //     round2();
+        // }, 3000);
+      } else {
+        if (e.pairs[0].bodyA.letterType === "shooting") {
+          e.pairs[0].bodyA.collisionFilter.category = 0x0001;
+          World.remove(phisyxEngine.world, [e.pairs[0].bodyA]);
+        } else if (e.pairs[0].bodyB.letterType === "shooting") {
+          e.pairs[0].bodyB.collisionFilter.category = 0x0001;
+          World.remove(phisyxEngine.world, [e.pairs[0].bodyB]);
+        }
       }
     }
   }
