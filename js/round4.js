@@ -64,7 +64,7 @@ function addLetter(letter) {
                         letter: letter,
                     		position: {
                     			x: phisyxEngine.render.options.width / 2 + letters[letter].pos,
-                    			y: 500
+                    			y: 430
                     		},
                     		vertices: JSON.parse(JSON.stringify(letters[letter].vertices)),
                     		mass: 0.0017,
@@ -129,11 +129,14 @@ Events.on(phisyxEngine, "collisionStart", (e) => {
   if (e.pairs[0].bodyA.name === "ground" && e.pairs[0].bodyB.letterType === "falling") {
     window.clearInterval(timeInterval);
     World.clear(phisyxEngine.world, false);
+  } else if (e.pairs[0].bodyA.name === "ground" && e.pairs[0].bodyB.letterType === "shooting") {
+    $('.score').text(`Score: ${score -= 2}`);
+    World.remove(phisyxEngine.world, [e.pairs[0].bodyB]);
   } else {
     if (e.pairs[0].bodyA.name === "gameLetter" && e.pairs[0].bodyB.name === "gameLetter") {
       if (e.pairs[0].bodyA.letterType !== e.pairs[0].bodyB.letterType && e.pairs[0].bodyA.letterChar === e.pairs[0].bodyB.letterChar) {
         World.remove(phisyxEngine.world, [e.pairs[0].bodyA, e.pairs[0].bodyB]);
-        $('.score').text(`${score += 1}`);
+        $('.score').text(`Score: ${score += 1}`);
         // window.setTimeout(() => {
         //   roundEnd = false;
         //     round2();
