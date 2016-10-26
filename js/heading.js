@@ -54,9 +54,9 @@ let trash2 = Bodies.rectangle(550, 10, 10, 10, {name: "trash", render:  {
 }});
 
 let ground = Bodies.rectangle(400, 200, 810, 10, { isStatic: true, render: {opacity: 0} });
-let midshelf = Bodies.rectangle(350, 100, 700, 10, { name: "midshelf",isStatic: true, render: {opacity: .5} });
+let midshelf = Bodies.rectangle(365, 100, 730, 10, { name: "midshelf",isStatic: true, render: {opacity: .5} });
 Body.rotate(midshelf, 3.05);
-let midshelfBlock = Bodies.rectangle(700, 25, 10, 70, { name: "midselfBlock", isStatic: true, render: {opacity: .5} });
+let midshelfBlock = Bodies.rectangle(720, 25, 10, 70, { name: "midselfBlock", isStatic: true, render: {opacity: .5} });
 let headingSelector = Bodies.rectangle(750, 0, 100, 20, { name: "selector", isStatic: true, render: {opacity: .5} });
 
 let ceiling = Bodies.rectangle(400, 0, 800, 5, { name: "ceiling", isStatic: true, render: {opacity: 0} });

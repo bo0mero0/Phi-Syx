@@ -64,7 +64,7 @@ function addLetter(letter) {
                         letter: letter,
                     		position: {
                     			x: phisyxEngine.render.options.width / 2 + letters[letter].pos,
-                    			y: 400
+                    			y: 500
                     		},
                     		vertices: JSON.parse(JSON.stringify(letters[letter].vertices)),
                     		mass: 0.0017,
@@ -74,8 +74,9 @@ function addLetter(letter) {
   // letterBody.collisionFilter.group = letters[letter].group;
   // letterBody.collisionFilter.mask = letters[letter].mask;
   // letterBody.collisionFilter.category = letters[letter].mask;
-  letterBody.angle = Math.random() * 0.5 - 0.25;
-  letterBody.force.y -= 0.0002;
+  Body.scale(letterBody, .5, .5);
+  // letterBody.angle = Math.random() * 0.5 - 0.25;
+  letterBody.force.y -= 0.00003;
   letterBodies.push(letterBody);
   World.add(phisyxEngine.world, letterBodies[letterBodies.length - 1]);
 
@@ -101,7 +102,7 @@ $(document).keypress(function(e) {
 //     addLetter(key);
 //   }
 // });
-let time = 500;
+let time = 700;
 window.setInterval(() => {
   let letterArr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let randLetter = letterArr[Math.floor(Math.random() * 25)];
@@ -119,6 +120,7 @@ window.setInterval(() => {
                     		restitution: 1
   });
   fallingLetter.timeScale = .1;
+  Body.scale(fallingLetter, .5, .5);
   World.add(phisyxEngine.world, fallingLetter);
 }, time)
 
