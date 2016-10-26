@@ -101,7 +101,7 @@ $(document).keypress(function(e) {
 //     addLetter(key);
 //   }
 // });
-let time = 3000;
+let time = 500;
 window.setInterval(() => {
   let letterArr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let randLetter = letterArr[Math.floor(Math.random() * 25)];
