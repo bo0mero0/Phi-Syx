@@ -77,7 +77,7 @@ World.add(headingEngine.world, [ceiling, round1Bubble, round2Bubble, round3Bubbl
                                 headingX, headingMouse]);      
 
 
-let currentRound = 1;
+// currentRound = 1;
 Events.on(headingEngine, "collisionStart", (e) => {
   if (e.pairs[0].bodyA.name === "selector") {console.log(e.pairs[0].bodyA.name);}
   if (e.pairs[0].bodyA.name === "bubble") {console.log(e.pairs[0].bodyB.name);}

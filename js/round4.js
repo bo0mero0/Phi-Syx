@@ -151,6 +151,7 @@ Events.on(phisyxEngine, "collisionStart", (e) => {
   if (e.pairs[0].bodyA.name === "ground" && e.pairs[0].bodyB.letterType === "falling") {
     window.clearInterval(timeInterval);
     World.clear(phisyxEngine.world, false);
+    score = 0;
   } else if (e.pairs[0].bodyA.name === "ground" && e.pairs[0].bodyB.letterType === "shooting") {
     $('.score').text(`Score: ${score -= 2}`);
     World.remove(phisyxEngine.world, [e.pairs[0].bodyB]);
