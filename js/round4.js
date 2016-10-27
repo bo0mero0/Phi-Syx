@@ -143,10 +143,10 @@ startTimeout = window.setTimeout(() => {
 let score = 0
 let recentHighScore;
 Events.on(phisyxEngine, "collisionStart", (e) => {
-  if (recentHighScore !== score && score % 10 === 0) {
+  if (recentHighScore !== score && time - (score * 5) > 50 && score % 10 === 0 ) {
     recentHighScore = score;
     window.clearInterval(timeInterval);
-    timeInterval = window.setInterval(createFallingLetter, time - (score * 10));
+    timeInterval = window.setInterval(createFallingLetter, time - (score * 5));
   }
   if (e.pairs[0].bodyA.name === "ground" && e.pairs[0].bodyB.letterType === "falling") {
     window.clearInterval(timeInterval);
