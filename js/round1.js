@@ -20,12 +20,12 @@ dragMouse = MouseConstraint.create(phisyxEngine);
 phisyxEngine.render.bounds.max = {x: 800, y: 500};
 phisyxEngine.render.bounds.min = {x: 0, y: 0};
 phisyxEngine.render.options.background= './images/syx_Background.png';
+dragMouse.collisionFilter.category = 0x0004
 
-
-let bubble = Bodies.circle(200, 200, 30, {mass: 1,name: "bubble", render:  {sprite: {xScale: .25, yScale: .25, texture: './images/paper_ball.png'}}});
-let bubble2 = Bodies.circle(200, 200, 30)
-let goal = Bodies.rectangle(710, 400, 70, 10, { name: "goal", render: {opacity: .5}, isStatic: true });
-let trashWall = Bodies.rectangle(675, 410, 2, 110, { name: "trashWall", render: {opacity: 1}, isStatic: true });
+let bubble = Bodies.circle(200, 200, 30, {mass: 1,name: "bubble", collisionFilter: {mask: 0x0001}, render:  {sprite: {xScale: .25, yScale: .25, texture: './images/paper_ball.png'}}});
+let basketball = Bodies.circle(170, 200, 30, {mass: 1,name: "basketball", collisionFilter: {mask: 0x0001 | 0x0004}, render:  {sprite: {xScale: .05, yScale: .05, texture: './images/basketball.png'}}})
+let goal = Bodies.rectangle(710, 400, 70, 10, { name: "goal", collisionFilter: {mask: 0x0001 | 0x0004}, render: {opacity: .5}, isStatic: true });
+let trashWall = Bodies.rectangle(675, 410, 2, 110, { name: "trashWall", collisionFilter: {mask: 0x0001 | 0x0004}, render: {opacity: 1}, isStatic: true });
 Body.rotate(trashWall, 3);
 let trash = Bodies.rectangle(710, 410, 10, 10, {name: "trash", isStatic: true, render:  {
   sprite: {
@@ -36,24 +36,34 @@ let trash = Bodies.rectangle(710, 410, 10, 10, {name: "trash", isStatic: true, r
   }
 }});
 
-let boxB = Bodies.rectangle(450, 50, 80, 80);
-let boxC = Bodies.rectangle(300, 50, 40, 20);
+let boxB = Bodies.rectangle(450, 50, 80, 80, {
+  collisionFilter: {mask: 0x0001 | 0x0004},
+  render: {
+    sprite: {
+      xScale: .162,
+      yScale: .162,
+      opacity: .5,
+      texture: './images/letterpblock.png'
+    }
+  }
+});
+let boxC = Bodies.rectangle(300, 50, 180, 60, {collisionFilter: {mask: 0x0001 | 0x0004}, render:  {sprite: {xScale: .05, yScale: .05, texture: './images/questionblock.png'}}});
 let ground = Bodies.rectangle(400, 470, 810, 10, { isStatic: true, render: {opacity: 0} });
 let ceiling = Bodies.rectangle(400, 25, 800, 5, { isStatic: true, render: {opacity: 0} });
 let wallL = Bodies.rectangle(30, 300, 5, 600, { isStatic: true, render: {opacity: 0} });
 let wallR = Bodies.rectangle(767, 300, 5, 600, { isStatic: true, render: {opacity: 0} });
-let trapezoid = Bodies.trapezoid(100, 100, 100, 100, 3);
+let trapezoid = Bodies.trapezoid(100, 100, 90, 90, 1, {mass: 1,name: "triangle", collisionFilter: {mask: 0x0001 | 0x0004}, render:  {sprite: {xScale: .11, yScale: .11, texture: './images/triangle.png'}}});
 
-World.add(phisyxEngine.world, [trashWall, goal, boxC, ceiling, wallL, wallR, trapezoid, bubble, bubble2, boxB, ground, trash, dragMouse]);
+World.add(phisyxEngine.world, [trashWall, goal, boxC, ceiling, wallL, wallR, trapezoid, bubble, basketball, boxB, ground, trash, dragMouse]);
 
-Events.on(dragMouse, "mousedown", (e) => {
-  console.log("phi mouse down");
-  bubble.isStatic = true;
-});
-Events.on(dragMouse, "mouseup", (e) => {
-  console.log("Phi mouse up");
-  bubble.isStatic = false;
-});
+// Events.on(dragMouse, "mousedown", (e) => {
+//   console.log("phi mouse down");
+//   bubble.isStatic = true;
+// });
+// Events.on(dragMouse, "mouseup", (e) => {
+//   console.log("Phi mouse up");
+//   bubble.isStatic = false;
+// });
 
 Events.on(phisyxEngine, "collisionStart", (e) => {
   if (roundEnd === false && e.pairs[0].bodyA.name === "bubble" && e.pairs[0].bodyB.name === "goal") {
