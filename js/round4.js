@@ -33,7 +33,7 @@ let round4 = function() {
 dragMouse = MouseConstraint.create(phisyxEngine);
 phisyxEngine.render.bounds.max = {x: 800, y: 500};
 phisyxEngine.render.bounds.min = {x: 0, y: 0};
-phisyxEngine.render.options.background= './images/syx_Background.png';
+phisyxEngine.render.options.background= './images/round4background.jpg';
 
 
 
@@ -64,6 +64,10 @@ function addLetter(letter) {
                         letterType: "shooting",
                         letterChar: letter,
                         letter: letter,
+                        render: {
+                          fillStyle: "#ffffff",
+                          strokeStyle: "#ffffff"
+                        },
                     		position: {
                     			x: phisyxEngine.render.options.width / 2 + letters[letter].pos,
                     			y: 430
@@ -104,9 +108,11 @@ $(document).on("keypress", function(e) {
 //     addLetter(key);
 //   }
 // });
-let time = 300;
+let time = 500;
 startTimeout = window.setTimeout(() => {
   timeInterval = window.setInterval(() => {
+    time -= 3;
+    if (time < 450) { debugger};
     let letterArr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let randLetter = letterArr[Math.floor(Math.random() * 25)];
     let fallingLetter = Body.create({

@@ -65,8 +65,8 @@ let wallR = Bodies.rectangle(700, 100, 5, 200, { name: "wallR", isStatic: true, 
 
 let round1Bubble = Bodies.circle(700, 150, 25, {mass: 1, name: "bubble", round: 1, render: {sprite: {xScale: .17, yScale: .17, texture: './images/bubble.png'}}});
 let round2Bubble = Bodies.circle(630, 150, 25, {mass: 1, name: "bubble", round: 2, render: {sprite: {xScale: .17, yScale: .17, texture: './images/bubble.png'}}});
-let round3Bubble = Bodies.circle(550, 150, 25, {mass: 1, name: "bubble", round: 3, render: {sprite: {xScale: .17, yScale: .17, texture: './images/bubble.png'}}});
-let round4Bubble = Bodies.circle(470, 150, 25, {mass: 1, name: "bubble", round: 4, render: {sprite: {xScale: .17, yScale: .17, texture: './images/bubble.png'}}});
+let round3Bubble = Bodies.circle(550, 150, 25, {mass: 1, name: "bubble", round: 3, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round3selector.png'}}});
+let round4Bubble = Bodies.circle(470, 150, 25, {mass: 1, name: "bubble", round: 4, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round4selector.png'}}});
 
 
 let headingMouse = MouseConstraint.create(headingEngine);
