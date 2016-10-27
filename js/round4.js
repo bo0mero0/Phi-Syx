@@ -30,6 +30,7 @@ let timeInterval;
 let startTimeout;
 
 let round4 = function() {
+  let gameover = false;
 dragMouse = MouseConstraint.create(phisyxEngine);
 phisyxEngine.render.bounds.max = {x: 800, y: 500};
 phisyxEngine.render.bounds.min = {x: 0, y: 0};
@@ -143,7 +144,7 @@ startTimeout = window.setTimeout(() => {
 let score = 0
 let recentHighScore;
 Events.on(phisyxEngine, "collisionStart", (e) => {
-  if (recentHighScore !== score && time - (score * 5) > 50 && score % 10 === 0 ) {
+  if (gameover === false && recentHighScore !== score && time - (score * 5) > 50 && score % 10 === 0 ) {
     recentHighScore = score;
     window.clearInterval(timeInterval);
     timeInterval = window.setInterval(createFallingLetter, time - (score * 5));
@@ -151,6 +152,7 @@ Events.on(phisyxEngine, "collisionStart", (e) => {
   if (e.pairs[0].bodyA.name === "ground" && e.pairs[0].bodyB.letterType === "falling") {
     window.clearInterval(timeInterval);
     World.clear(phisyxEngine.world, false);
+    gameover = true
     score = 0;
   } else if (e.pairs[0].bodyA.name === "ground" && e.pairs[0].bodyB.letterType === "shooting") {
     $('.score').text(`Score: ${score -= 2}`);

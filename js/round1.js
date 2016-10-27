@@ -87,8 +87,8 @@ Events.on(phisyxEngine, "collisionStart", (e) => {
     World.add(phisyxEngine.world, [w, i, n]);
     window.setTimeout(() => {
       Events.off(phisyxEngine, "collisionStart");
-      Events.off(dragMouse, "mousedown");
-      Events.off(dragMouse, "mouseup");
+      // Events.off(dragMouse, "mousedown");
+      // Events.off(dragMouse, "mouseup");
       World.clear(phisyxEngine.world, false);
       Engine.clear(phisyxEngine);
       roundEnd = false;
