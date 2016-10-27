@@ -13,3 +13,14 @@
 .reset {
   cursor: pointer;
 }
+
+.score {
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  font-size: 24px;
+  color: #fff;
+  position: absolute;
+  padding-left: 15px;
+  padding-top: 5px;
+
+
+}

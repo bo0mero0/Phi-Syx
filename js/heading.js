@@ -87,6 +87,7 @@ Events.on(headingEngine, "collisionStart", (e) => {
       $(document).off("keypress");
       window.clearInterval(timeInterval);
       window.clearTimeout(startTimeout);
+      $('.score').text(``);
       // Events.off(dragMouse);
       World.clear(phisyxEngine.world, false);
       switch (e.pairs[0].bodyB.round) {

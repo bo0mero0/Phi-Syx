@@ -41,10 +41,47 @@ let round4 = function() {
   let countdown3 = Bodies.circle(200, 100, 72, {isStatic: true, mass: 1,name: "countdown", collisionFilter: {mask: 0x0001 | 0x0004}, render:  {sprite: {xScale: .4, yScale: .4, texture: './images/countdown3.png'}}})
 
   let ground = Bodies.rectangle(400, 500, 810, 5, { name: "ground", isStatic: true, render: {opacity: 0} });
+  let gameoverGround = Bodies.rectangle(400, 300, 810, 5, { name: "gameoverGround", isStatic: true, render: {opacity: 0} });
   let ceiling = Bodies.rectangle(400, 0, 800, 5, { isStatic: true, render: {opacity: 0} });
   let wallL = Bodies.rectangle(0, 300, 5, 600, { isStatic: true, render: {opacity: 0} });
   let wallR = Bodies.rectangle(800, 300, 5, 600, { isStatic: true, render: {opacity: 0} });
   ground.collisionFilter.category = 0x0002 | 0x0004;
+
+  let t = Body.create({
+    position: { x: 200, y: 50},
+    vertices: JSON.parse(JSON.stringify(T)),
+    mass: 0.0017,
+  });
+  let o = Body.create({
+    position: { x: 250, y: 50},
+    vertices: JSON.parse(JSON.stringify(O)),
+    mass: 0.0017,
+  });
+  let o2 = Body.create({
+    position: { x: 320, y: 50},
+    vertices: JSON.parse(JSON.stringify(O)),
+    mass: 0.0017,
+  });
+  let s = Body.create({
+    position: { x: 450, y: 50},
+    vertices: JSON.parse(JSON.stringify(S)),
+    mass: 0.0017,
+  });
+  let l = Body.create({
+    position: { x: 500, y: 50},
+    vertices: JSON.parse(JSON.stringify(L)),
+    mass: 0.0017,
+  });
+  let o3 = Body.create({
+    position: { x: 550, y: 50},
+    vertices: JSON.parse(JSON.stringify(O)),
+    mass: 0.0017,
+  });
+  let w = Body.create({
+    position: { x: 600, y: 50},
+    vertices: JSON.parse(JSON.stringify(W)),
+    mass: 0.0017,
+  });
 
   function createLetter(x, y, key) {
   	return Body.create({
@@ -168,6 +205,7 @@ let round4 = function() {
       gameover = true
       window.clearInterval(timeInterval);
       World.clear(phisyxEngine.world, false);
+      World.add(phisyxEngine.world, [t,o,o2,s,l,o3,w, gameoverGround]);
       score = 0;
     } else if (e.pairs[0].bodyA.name === "ground" && e.pairs[0].bodyB.letterType === "shooting") {
       $('.score').text(`Score: ${score -= 2}`);
