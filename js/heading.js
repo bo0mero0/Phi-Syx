@@ -1,12 +1,19 @@
+let round1Bubble;
+let round2Bubble;
+let round3Bubble;
+let round4Bubble;
+let headingEngine;
+let instructionsTimeout;
+
 let heading = function() {
 
-  let headingEngine = Engine.create({
+  headingEngine = Engine.create({
     sceneEvents: [],
     render: {
       element: document.getElementById('title-canvas'),
       options: { width: 700, height: 200,
-                 showPositions: true,
-                 showCollisions: true,
+                 showPositions: false,
+                 showCollisions: false,
                  background: '#cccccc',
                  wireframes: false}
     }
@@ -63,10 +70,10 @@ let ceiling = Bodies.rectangle(400, 0, 800, 5, { name: "ceiling", isStatic: true
 let wallL = Bodies.rectangle(0, 100, 5, 200, { name: "wallL", isStatic: true, render: {opacity: 0} });
 let wallR = Bodies.rectangle(700, 100, 5, 200, { name: "wallR", isStatic: true, render: {opacity: 0} });
 
-let round1Bubble = Bodies.circle(700, 150, 25, {mass: 1, name: "bubble", round: 1, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round1selector.png'}}});
-let round2Bubble = Bodies.circle(630, 150, 25, {mass: 1, name: "bubble", round: 2, render: {sprite: {xScale: .17, yScale: .17, texture: './images/bubble.png'}}});
-let round3Bubble = Bodies.circle(550, 150, 25, {mass: 1, name: "bubble", round: 3, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round3selector.png'}}});
-let round4Bubble = Bodies.circle(470, 150, 25, {mass: 1, name: "bubble", round: 4, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round4selector.png'}}});
+round1Bubble = Bodies.circle(700, 150, 25, {mass: 2, name: "bubble", round: 1, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round1selector.png'}}});
+round2Bubble = Bodies.circle(630, 150, 25, {mass: 2, name: "bubble", round: 2, render: {sprite: {xScale: .17, yScale: .17, texture: './images/bubble.png'}}});
+round3Bubble = Bodies.circle(550, 150, 25, {mass: 2, name: "bubble", round: 3, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round3selector.png'}}});
+round4Bubble = Bodies.circle(470, 150, 25, {mass: 2, name: "bubble", round: 4, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round4selector.png'}}});
 
 
 let headingMouse = MouseConstraint.create(headingEngine);
@@ -78,8 +85,6 @@ World.add(headingEngine.world, [ceiling, round1Bubble, round2Bubble, round3Bubbl
 
 
 Events.on(headingEngine, "collisionStart", (e) => {
-  if (e.pairs[0].bodyA.name === "selector") {console.log(e.pairs[0].bodyA.name);}
-  if (e.pairs[0].bodyA.name === "bubble") {console.log(e.pairs[0].bodyB.name);}
   if (e.pairs[0].bodyA.name === "selector" && e.pairs[0].bodyB.name === "bubble") {
     if (currentRound !== e.pairs[0].bodyB.round) {
       currentRound = e.pairs[0].bodyB.round
@@ -87,6 +92,8 @@ Events.on(headingEngine, "collisionStart", (e) => {
       $(document).off("keypress");
       window.clearInterval(timeInterval);
       window.clearTimeout(startTimeout);
+      window.clearTimeout(instructionsTimeout);
+      $('.instructions').css({"padding-top":"100px"});
       $('.score').text(``);
       // Events.off(dragMouse);
       World.clear(phisyxEngine.world, false);

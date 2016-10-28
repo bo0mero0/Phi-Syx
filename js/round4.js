@@ -30,6 +30,15 @@ let timeInterval;
 let startTimeout;
 
 let round4 = function() {
+
+	$('.instructions').text(`Get ready to Type the letters as they fall!`);
+	$('.instructions').css({"padding-top":"200px"});
+
+	instructionsTimeout = window.setTimeout(() => {
+		$('.instructions').text(``);
+
+	}, 5000);
+
   let gameover = false;
   dragMouse = MouseConstraint.create(phisyxEngine);
   phisyxEngine.render.bounds.max = {x: 800, y: 500};
@@ -195,7 +204,6 @@ let round4 = function() {
   let score = 0
   let recentHighScore = 0;
   Events.on(phisyxEngine, "collisionStart", (e) => {
-    console.log(gameover);
     if (gameover === false && recentHighScore !== score && time - (score * 5) > 50 && score % 10 === 0 ) {
       recentHighScore = score;
       window.clearInterval(timeInterval);

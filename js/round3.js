@@ -1,4 +1,9 @@
 let round3 = function() {
+  $('.instructions').text(`Slingshot the weapon to knock of P H I`);
+
+  instructionsTimeout = window.setTimeout(() => {
+    $('.instructions').text(``);
+  }, 5000);
 
   phisyxEngine.render.options.background = '#000000';
   let spear = Bodies.rectangle(300, 400, 200, 10, {name: "spear", render: {
@@ -282,8 +287,7 @@ let round3 = function() {
       window.setTimeout(() => {
         phisyxEngine.timing.timeScale = 1;
         window.setTimeout(() => {
-          World.clear(phisyxEngine.world, false);
-
+          Body.setPosition(round3Bubble, { x: 400, y: 150 });
         }, 3000);
       }, 3000);
     }

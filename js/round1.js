@@ -16,6 +16,11 @@ let roundEnd = false;
 
 let round1 = function() {
 
+$('.instructions').text(`Get the paperball inside the trash by moving OTHER objects`);
+instructionsTimeout = window.setTimeout(() => {
+  $('.instructions').text(``);
+}, 5000);
+
 dragMouse = MouseConstraint.create(phisyxEngine);
 phisyxEngine.render.bounds.max = {x: 800, y: 500};
 phisyxEngine.render.bounds.min = {x: 0, y: 0};
@@ -56,14 +61,6 @@ let trapezoid = Bodies.trapezoid(100, 100, 90, 90, 1, {mass: 1,name: "triangle",
 
 World.add(phisyxEngine.world, [trashWall, goal, boxC, ceiling, wallL, wallR, trapezoid, bubble, basketball, boxB, ground, trash, dragMouse]);
 
-// Events.on(dragMouse, "mousedown", (e) => {
-//   console.log("phi mouse down");
-//   bubble.isStatic = true;
-// });
-// Events.on(dragMouse, "mouseup", (e) => {
-//   console.log("Phi mouse up");
-//   bubble.isStatic = false;
-// });
 
 Events.on(phisyxEngine, "collisionStart", (e) => {
   if (roundEnd === false && e.pairs[0].bodyA.name === "bubble" && e.pairs[0].bodyB.name === "goal") {
@@ -85,14 +82,9 @@ Events.on(phisyxEngine, "collisionStart", (e) => {
       mass: 0.0017
     });
     World.add(phisyxEngine.world, [w, i, n]);
+
     window.setTimeout(() => {
-      Events.off(phisyxEngine, "collisionStart");
-      // Events.off(dragMouse, "mousedown");
-      // Events.off(dragMouse, "mouseup");
-      World.clear(phisyxEngine.world, false);
-      Engine.clear(phisyxEngine);
-      roundEnd = false;
-        round2();
+      Body.setPosition(round1Bubble, { x: 400, y: 150 });
     }, 3000);
   }
 });

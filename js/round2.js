@@ -1,4 +1,9 @@
 let round2 = function() {
+  $('.instructions').text(`Slingshot the rock to knock of P H I`);
+
+  instructionsTimeout = window.setTimeout(() => {
+    $('.instructions').text(``);
+  }, 5000);
 
   phisyxEngine.render.options.background = '#85f74c';
   let rock = Bodies.circle(200, 400, 20, {name: "rock", render: {
@@ -261,11 +266,7 @@ let round2 = function() {
       window.setTimeout(() => {
         phisyxEngine.timing.timeScale = 1;
         window.setTimeout(() => {
-          Events.off(phisyxEngine, "collisionStart");
-          Events.off(phisyxEngine, "beforeTick");
-          Events.off(phisyxEngine, "afterUpdate");
-          World.clear(phisyxEngine.world, false);
-          round3();
+          Body.setPosition(round2Bubble, { x: 400, y: 150 });
         }, 3000);
       }, 3000);
     }

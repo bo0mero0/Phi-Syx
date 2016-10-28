@@ -21,6 +21,15 @@
   position: absolute;
   padding-left: 15px;
   padding-top: 5px;
+}
 
-
+.instructions {
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  font-size: 16;
+  color: #fff;
+  padding-top: 100px;
+  text-align: center;
+  position: absolute;
+  width: 500px;
+  margin: 0 150px 0 150px;
 }

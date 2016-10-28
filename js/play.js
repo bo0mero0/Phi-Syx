@@ -3,8 +3,8 @@ let phisyxEngine = Engine.create({
   render: {
     element: document.getElementById('canvas'),
     options: { width: 800, height: 500,
-               showPositions: true,
-               showCollisions: true,
+               showPositions: false,
+               showCollisions: false,
                wireframes: false}
   }
 });
