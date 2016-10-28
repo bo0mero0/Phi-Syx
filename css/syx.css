@@ -21,6 +21,8 @@
   position: absolute;
   padding-left: 15px;
   padding-top: 5px;
+  pointer-events: none;
+
 }
 
 .instructions {
@@ -32,4 +34,18 @@
   position: absolute;
   width: 500px;
   margin: 0 150px 0 150px;
+  pointer-events: none;
+
+}
+
+.heading-instructions {
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  position: absolute;
+  color: #000;
+  text-align: center;
+  width: 500px;
+  margin-top: 170px;
+  margin-left: 100px;
+  pointer-events: none;
+
 }
