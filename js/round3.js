@@ -1,8 +1,10 @@
 let round3 = function() {
-  $('.instructions').text(`Slingshot the weapon to knock of P H I`);
+  $('.instructions').text(`Slingshot the weapon to knock off P H I`);
+  $('.instructions2').text(`(Use mouse to zoom and shift views)`);
 
   instructionsTimeout = window.setTimeout(() => {
     $('.instructions').text(``);
+    $('.instructions2').text(``);
   }, 5000);
 
   phisyxEngine.render.options.background = '#000000';
@@ -23,7 +25,7 @@ let round3 = function() {
       stiffness: 0.3,
       render: {
           lineWidth: 3,
-          strokeStyle: '#dfa417'
+          strokeStyle: '#ffffff'
       }
   });
 
@@ -89,7 +91,7 @@ let round3 = function() {
 
   dragMouse = MouseConstraint.create(phisyxEngine, { constraint: { stiffness: .4 }});
   dragMouse.collisionFilter.category = 0x0004;
-
+  dragMouse.constraint.render.visible = false;
   World.add(phisyxEngine.world, [background, shield, platform1, platform2, platform3, p, h, i, spear, sling, ceiling, wallL, wallR, ground, dragMouse]);
 
 
@@ -127,34 +129,34 @@ let round3 = function() {
        y: phisyxEngine.render.options.height * 0.5
    };
 
-  phisyxEngine.world.bounds.min.x = -100;
+  phisyxEngine.world.bounds.min.x = -150;
   phisyxEngine.world.bounds.min.y = -100;
-  phisyxEngine.world.bounds.max.x = 1700;
+  phisyxEngine.world.bounds.max.x = 1750;
   phisyxEngine.world.bounds.max.y = 700;
 
   Events.on(phisyxEngine, 'beforeTick', function() {
       let translate;
       let render = phisyxEngine.render;
       let world = phisyxEngine.world;
-      // mouse wheel controls zoom
+
       let scaleFactor = dragMouse.mouse.wheelDelta * -0.1;
       if (scaleFactor !== 0) {
-          if ((scaleFactor < 0 && boundsScale.x >= 1) || (scaleFactor > 0 && boundsScale.x <= 1.7)) {
+          if ((scaleFactor < 0 && boundsScale.x >= 1) || (scaleFactor > 0 && boundsScale.x <= 2)) {
               boundsScaleTarget += scaleFactor;
           }
       }
-      // if scale has changed
+
       if (Math.abs(boundsScale.x - boundsScaleTarget) > 0.01) {
-          // smoothly tween scale factor
+
           scaleFactor = (boundsScaleTarget - boundsScale.x) * 0.2;
           boundsScale.x += scaleFactor;
           boundsScale.y += scaleFactor;
 
-          // scale the render bounds
+
           render.bounds.max.x = render.bounds.min.x + render.options.width * boundsScale.x;
           render.bounds.max.y = render.bounds.min.y + render.options.height * boundsScale.y;
 
-          // translate so zoom is from centre of view
+
           translate = {
               x: render.options.width * scaleFactor * -0.5,
               y: render.options.height * scaleFactor * -0.5
@@ -162,7 +164,7 @@ let round3 = function() {
 
           Bounds.translate(render.bounds, translate);
 
-          // update mouse
+
           Mouse.setScale(dragMouse.mouse, boundsScale);
           Mouse.setOffset(dragMouse.mouse, render.bounds.min);
       }
@@ -170,15 +172,12 @@ let round3 = function() {
       var deltaCentre = Vector.sub(dragMouse.mouse.absolute, viewportCentre),
           centreDist = Vector.magnitude(deltaCentre);
 
-      // translate the view if mouse has moved over 50px from the centre of viewport
       if (centreDist > 50) {
-          // create a vector to translate the view, allowing the user to control view speed
           var direction = Vector.normalise(deltaCentre),
               speed = Math.min(10, Math.pow(centreDist - 50, 2) * 0.0002);
 
           translate = Vector.mult(direction, speed);
 
-          // prevent the view moving outside the world bounds
           if (render.bounds.min.x + translate.x < world.bounds.min.x)
               translate.x = world.bounds.min.x - render.bounds.min.x;
 
@@ -191,16 +190,13 @@ let round3 = function() {
           if (render.bounds.max.y + translate.y > world.bounds.max.y)
               translate.y = world.bounds.max.y - render.bounds.max.y;
 
-          // move the view
           Bounds.translate(render.bounds, translate);
 
-          // we must update the mouse too
           Mouse.setOffset(dragMouse.mouse, render.bounds.min);
       }
     });
     let renderOptions = phisyxEngine.render.options;
        renderOptions.hasBounds = true;
-      //  renderOptions.wireframes = false;
 
   let knockP = false;
   let knockH = false;

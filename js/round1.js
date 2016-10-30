@@ -22,6 +22,7 @@ instructionsTimeout = window.setTimeout(() => {
 }, 5000);
 
 dragMouse = MouseConstraint.create(phisyxEngine);
+dragMouse.constraint.render.visible = false;
 phisyxEngine.render.bounds.max = {x: 800, y: 500};
 phisyxEngine.render.bounds.min = {x: 0, y: 0};
 phisyxEngine.render.options.background= './images/syx_Background.png';

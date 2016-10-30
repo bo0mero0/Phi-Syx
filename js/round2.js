@@ -1,8 +1,10 @@
 let round2 = function() {
-  $('.instructions').text(`Slingshot the rock to knock of P H I`);
+  $('.instructions').text(`Slingshot the rock to knock off P H I`);
+  $('.instructions2').text(`(Use mouse to zoom and shift views)`);
 
   instructionsTimeout = window.setTimeout(() => {
     $('.instructions').text(``);
+    $('.instructions2').text(``);
   }, 5000);
 
   phisyxEngine.render.options.background = '#85f74c';
@@ -10,7 +12,7 @@ let round2 = function() {
           sprite: {
             xScale: .2,
             yScale: .2,
-            texture: 'http://vignette3.wikia.nocookie.net/spore/images/7/7b/A_Freaking_Rock.png/revision/latest?cb=20080716163511'
+            texture: './images/Rock.png'
           }
         } });
   rock.collisionFilter.mask = 0x0001 | 0x0004;
@@ -21,40 +23,76 @@ let round2 = function() {
       bodyB: rock,
       stiffness: 0.3,
       render: {
-          lineWidth: 3,
-          strokeStyle: '#dfa417'
+          lineWidth: 7,
+          strokeStyle: '#2f1810'
       }
   });
 
 
   let p = Body.create({
     name: "P",
-    position: { x: 1300, y: 100},
+    position: { x: 1000, y: 100},
     vertices: JSON.parse(JSON.stringify(P)),
     mass: 0.0017,
     collisionFilter: {mask: 0x0001},
     render: {fillStyle:'#000000'}
   });
+  let platform1 = Bodies.rectangle(1000, 200, 100, 5, { isStatic: true, render: {
+          sprite: {
+            xScale: .3,
+            yScale: .3,
+            texture: './images/platform1.png'
+          }
+        } });
 
   let h = Body.create({
     name: "H",
-    position: { x: 1300, y: 200},
+    position: { x: 1200, y: 100},
     vertices: JSON.parse(JSON.stringify(H)),
     mass: 0.0017,
     collisionFilter: {mask: 0x0001}
   });
+  let platform2 = Bodies.rectangle(1200, 300, 100, 5, { isStatic: true, render: {
+          sprite: {
+            xScale: .3,
+            yScale: .3,
+            texture: './images/platform1.png'
+          }
+        } });
 
   let i = Body.create({
     name: "I",
-    position: { x: 1300, y: 300},
+    position: { x: 1400, y: 100},
     vertices: JSON.parse(JSON.stringify(I)),
     mass: 0.0017,
     collisionFilter: {mask: 0x0001}
   });
 
-  let platform = Bodies.rectangle(1300, 400, 100, 5, { isStatic: true });
+  let platform3 = Bodies.rectangle(1400, 400, 100, 5, { isStatic: true, render: {
+          sprite: {
+            xScale: .3,
+            yScale: .3,
+            texture: './images/platform1.png'
+          }
+        } });
 
+  let slingshot = Bodies.rectangle(179, 440, 5, 5, { collisionFilter: { category: 0x0002 }, isStatic: true, render: {
+      sprite: {
+        xScale: .4,
+        yScale: .4,
+        texture: './images/slingshot.png'
+      }
+    }
+  });
 
+  let slingshotFront = Bodies.rectangle(179, 440, 5, 5, { collisionFilter: { category: 0x0002 }, isStatic: true, render: {
+      sprite: {
+        xScale: .4,
+        yScale: .4,
+        texture: './images/slingshot_front.png'
+      }
+    }
+  });
   let ground = Bodies.rectangle(800, 500, 1600, 5, { name: "ground", isStatic: true });
   let ceiling = Bodies.rectangle(800, 0, 1600, 5, { name: "ceiling", isStatic: true });
   let wallL = Bodies.rectangle(0, 250, 5, 500, { name: "wallL", isStatic: true });
@@ -74,8 +112,9 @@ let round2 = function() {
 
   dragMouse = MouseConstraint.create(phisyxEngine, { constraint: { stiffness: .4 }});
   dragMouse.collisionFilter.category = 0x0004
-  World.add(phisyxEngine.world, [background, platform, p, h, i, rock, sling, ceiling, wallL, wallR, ground, dragMouse]);
+  dragMouse.constraint.render.visible = false;
 
+  World.add(phisyxEngine.world, [background, platform1, platform2, platform3, p, h, i, slingshot, rock, slingshotFront, sling, ceiling, wallL, wallR, ground, dragMouse]);
 
 
   Events.on(phisyxEngine, 'afterUpdate', function() {
@@ -86,11 +125,11 @@ let round2 = function() {
           sprite: {
             xScale: .2,
             yScale: .2,
-            texture: 'http://vignette3.wikia.nocookie.net/spore/images/7/7b/A_Freaking_Rock.png/revision/latest?cb=20080716163511'
+            texture: './images/Rock.png'
           }
         } });
         rock.collisionFilter.mask = 0x0001 | 0x0004;
-        World.add(phisyxEngine.world, rock);
+        World.add(phisyxEngine.world, [rock, slingshotFront]);
         sling.bodyB = rock;
     }
   });
@@ -106,9 +145,9 @@ let round2 = function() {
        y: phisyxEngine.render.options.height * 0.5
    };
 
-  phisyxEngine.world.bounds.min.x = -100;
+  phisyxEngine.world.bounds.min.x = -150;
   phisyxEngine.world.bounds.min.y = -100;
-  phisyxEngine.world.bounds.max.x = 1700;
+  phisyxEngine.world.bounds.max.x = 1750;
   phisyxEngine.world.bounds.max.y = 700;
 
   Events.on(phisyxEngine, 'beforeTick', function() {
@@ -118,7 +157,7 @@ let round2 = function() {
       // mouse wheel controls zoom
       let scaleFactor = dragMouse.mouse.wheelDelta * -0.1;
       if (scaleFactor !== 0) {
-          if ((scaleFactor < 0 && boundsScale.x >= 1) || (scaleFactor > 0 && boundsScale.x <= 1.7)) {
+          if ((scaleFactor < 0 && boundsScale.x >= 1) || (scaleFactor > 0 && boundsScale.x <= 2)) {
               boundsScaleTarget += scaleFactor;
           }
       }
@@ -149,7 +188,7 @@ let round2 = function() {
       var deltaCentre = Vector.sub(dragMouse.mouse.absolute, viewportCentre),
           centreDist = Vector.magnitude(deltaCentre);
 
-      // translate the view if mouse has moved over 50px from the centre of viewport
+
       if (centreDist > 50) {
           // create a vector to translate the view, allowing the user to control view speed
           var direction = Vector.normalise(deltaCentre),
@@ -157,7 +196,6 @@ let round2 = function() {
 
           translate = Vector.mult(direction, speed);
 
-          // prevent the view moving outside the world bounds
           if (render.bounds.min.x + translate.x < world.bounds.min.x)
               translate.x = world.bounds.min.x - render.bounds.min.x;
 
@@ -170,16 +208,14 @@ let round2 = function() {
           if (render.bounds.max.y + translate.y > world.bounds.max.y)
               translate.y = world.bounds.max.y - render.bounds.max.y;
 
-          // move the view
           Bounds.translate(render.bounds, translate);
 
-          // we must update the mouse too
+
           Mouse.setOffset(dragMouse.mouse, render.bounds.min);
       }
     });
     let renderOptions = phisyxEngine.render.options;
        renderOptions.hasBounds = true;
-      //  renderOptions.wireframes = false;
 
   let knockP = false;
   let knockH = false;

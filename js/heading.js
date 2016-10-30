@@ -71,12 +71,13 @@ let wallL = Bodies.rectangle(0, 100, 5, 200, { name: "wallL", isStatic: true, re
 let wallR = Bodies.rectangle(700, 100, 5, 200, { name: "wallR", isStatic: true, render: {opacity: 0} });
 
 round1Bubble = Bodies.circle(700, 150, 25, {mass: 2, name: "bubble", round: 1, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round1selector.png'}}});
-round2Bubble = Bodies.circle(630, 150, 25, {mass: 2, name: "bubble", round: 2, render: {sprite: {xScale: .17, yScale: .17, texture: './images/bubble.png'}}});
+round2Bubble = Bodies.circle(630, 150, 25, {mass: 2, name: "bubble", round: 2, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round2selector.png'}}});
 round3Bubble = Bodies.circle(550, 150, 25, {mass: 2, name: "bubble", round: 3, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round3selector.png'}}});
 round4Bubble = Bodies.circle(470, 150, 25, {mass: 2, name: "bubble", round: 4, render: {sprite: {xScale: .14, yScale: .14, texture: './images/round4selector.png'}}});
 
 
 let headingMouse = MouseConstraint.create(headingEngine);
+headingMouse.constraint.render.visible = false;
 World.add(headingEngine.world, [ceiling, round1Bubble, round2Bubble, round3Bubble,
                                 round4Bubble, wallL, wallR, ground,
                                 midshelf, midshelfBlock, headingSelector,
@@ -94,6 +95,7 @@ Events.on(headingEngine, "collisionStart", (e) => {
       window.clearTimeout(startTimeout);
       window.clearTimeout(instructionsTimeout);
       $('.instructions').css({"padding-top":"100px"});
+      $('.instructions2').text(``);
       $('.score').text(``);
       // Events.off(dragMouse);
       World.clear(phisyxEngine.world, false);
