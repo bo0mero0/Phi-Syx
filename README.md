@@ -1,6 +1,6 @@
 # **Phi-Syx**
 
-## **[Live Weblink](http://bo0mero0.github.io/Phi-Syx)**
+## **[Live Weblink](http://phitruong.me/Phi-Syx)**
 
 ## **Background**
 
