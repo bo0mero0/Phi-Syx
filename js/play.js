@@ -13,6 +13,10 @@ let dragMouse;
 
 heading();
 round1();
+$('.instruction-gif-img').attr("src", "./images/header.gif");
+headerInstructionsTimeout = window.setTimeout(() => {
+  $('.instruction-gif-img').attr("src", "./images/round1.gif");
+}, 5000);
 
 let rounds = {
   1: round1,

@@ -20,6 +20,7 @@ $('.instructions').text(`Get the paperball inside the trash by moving OTHER obje
 instructionsTimeout = window.setTimeout(() => {
   $('.instructions').text(``);
 }, 5000);
+$('.instruction-gif-img').attr("src", "./images/round1.gif");
 
 dragMouse = MouseConstraint.create(phisyxEngine);
 dragMouse.constraint.render.visible = false;

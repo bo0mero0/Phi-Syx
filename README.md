@@ -8,10 +8,14 @@
 
 ## **Game Basics**
 
+### **Round Selection**
+  ![](./images/headerselector.gif)
+
 ### **Object Interaction Rounds**
-  ![Live Weblink](./images/round1readme.gif)
+  ![](./images/round1readme.gif)
 
 ### **Slingshot Rounds**
+  ![](./images/round2readme.gif)
 
 ### **Typing Challenge Rounds**
-  ![Live Weblink](./images/round4readme.gif)
+  ![](./images/round4readme.gif)

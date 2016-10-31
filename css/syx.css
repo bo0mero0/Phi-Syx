@@ -61,17 +61,19 @@
 .heading-instructions {
   font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   position: absolute;
-  color: #000;
+  color: #ccc;
   text-align: center;
   width: 500px;
-  margin-top: 170px;
-  margin-left: 100px;
+  margin-top: 180px;
+  margin-left: 300px;
+  font-size: 14px;
   pointer-events: none;
 }
 
 .gif-instructions {
   position: absolute;
-  margin-top: 97px;
+  margin-top: 50px;
+  margin-left: 35px;
   pointer-events: none;
 }
 

@@ -33,6 +33,7 @@ let round4 = function() {
 
 	$('.instructions').text(`Get ready to Type the letters as they fall!`);
 	$('.instructions').css({"padding-top":"200px"});
+	$('.instruction-gif-img').attr("src", "./images/round4.gif");
 
 	instructionsTimeout = window.setTimeout(() => {
 		$('.instructions').text(``);

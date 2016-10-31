@@ -1,6 +1,7 @@
 let round3 = function() {
   $('.instructions').text(`Slingshot the weapon to knock off P H I`);
   $('.instructions2').text(`(Use mouse to zoom and shift views)`);
+  $('.instruction-gif-img').attr("src", "./images/round3.gif");
 
   instructionsTimeout = window.setTimeout(() => {
     $('.instructions').text(``);
