@@ -23,7 +23,7 @@ let round3 = function() {
   let sling = Constraint.create({
       pointA: slingPoint,
       bodyB: spear,
-      stiffness: 0.3,
+      stiffness: 0.4,
       render: {
           lineWidth: 3,
           strokeStyle: '#ffffff'
@@ -102,7 +102,7 @@ let round3 = function() {
     Body.setPosition(shield, { x: 1000, y: py - 50 });
   })
   Events.on(phisyxEngine, 'afterUpdate', function() {
-    if (dragMouse.mouse.button === -1 && (spear.position.x > 350 || spear.position.y < 380)) {
+    if (dragMouse.mouse.button === -1 && (spear.position.x > 330 || spear.position.y < 390)) {
       spear.collisionFilter.mask = 0x0001;
 
         spear = Bodies.rectangle(300, 400, 200, 10, {name: "rock2", render: {

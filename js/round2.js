@@ -21,7 +21,7 @@ let round2 = function() {
   let sling = Constraint.create({
       pointA: slingPoint,
       bodyB: rock,
-      stiffness: 0.3,
+      stiffness: 0.6,
       render: {
           lineWidth: 7,
           strokeStyle: '#2f1810'
@@ -118,7 +118,7 @@ let round2 = function() {
 
 
   Events.on(phisyxEngine, 'afterUpdate', function() {
-    if (dragMouse.mouse.button === -1 && (rock.position.x > 250 || rock.position.y < 380)) {
+    if (dragMouse.mouse.button === -1 && (rock.position.x > 220 || rock.position.y < 390)) {
       rock.collisionFilter.mask = 0x0001;
 
         rock = Bodies.polygon(200, 400, 7, 20, {name: "rock2", render: {
