@@ -127,11 +127,8 @@ let round4 = function() {
                       		friction: 0,
                       		restitution: 1
     });
-    // letterBody.collisionFilter.group = letters[letter].group;
-    // letterBody.collisionFilter.mask = letters[letter].mask;
-    // letterBody.collisionFilter.category = letters[letter].mask;
+
     Body.scale(letterBody, .5, .5);
-    // letterBody.angle = Math.random() * 0.5 - 0.25;
     letterBody.force.y -= 0.00003;
     letterBodies.push(letterBody);
     World.add(phisyxEngine.world, letterBodies[letterBodies.length - 1]);
@@ -224,10 +221,7 @@ let round4 = function() {
         if (e.pairs[0].bodyA.letterType !== e.pairs[0].bodyB.letterType && e.pairs[0].bodyA.letterChar === e.pairs[0].bodyB.letterChar) {
           World.remove(phisyxEngine.world, [e.pairs[0].bodyA, e.pairs[0].bodyB]);
           $('.score').text(`Score: ${score += 1}`);
-          // window.setTimeout(() => {
-          //   roundEnd = false;
-          //     round2();
-          // }, 3000);
+
         } else {
           if (e.pairs[0].bodyA.letterType === "shooting") {
             e.pairs[0].bodyA.collisionFilter.category = 0x0001;

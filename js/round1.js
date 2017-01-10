@@ -92,12 +92,3 @@ Events.on(phisyxEngine, "collisionStart", (e) => {
 });
 
 };
-
-
-// window.setTimeout(() => {
-//   World.clear(phisyxEngine.world, false);
-//   let boxA = Bodies.rectangle(200, 200, 80, 80, {collisionFilter: {group: -4},name: "box A", render:  {sprite: {xScale: .2, yScale: .2, texture: 'https://40.media.tumblr.com/e8258a36ccf95080f68f2ecf1a0ad021/tumblr_inline_nvs0vwJyjO1r33elg_540.png'}}});
-//   World.add(phisyxEngine.world, [boxA]);
-//   Render.run(phisyxEngine.render);
-//
-// }, 2000)

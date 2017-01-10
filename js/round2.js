@@ -16,7 +16,6 @@ let round2 = function() {
           }
         } });
   rock.collisionFilter.mask = 0x0001 | 0x0004;
-  // rock.mass = 10;
   let slingPoint = { x: 200, y: 400 };
   let sling = Constraint.create({
       pointA: slingPoint,
