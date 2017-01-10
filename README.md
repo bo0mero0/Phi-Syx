@@ -4,7 +4,7 @@
 
 ## **Background**
 
-  Phi-Syx is an interactive game with multiple rounds each with a unique concept. The overall purpose is to demonstrate the realistic interactions between objects with other object and the world that they are in. Each round have their own winning conditions and is simple and easy to get the hang of. Most rounds' user interaction comes from use of drag and drop type play, with exceptions with use of keyboard input. Even the stage selection is an unique experience with orbs representing the rounds and user place them inside the designated area to start that round.
+  Phi-Syx is an interactive game with multiple rounds each with a unique concept build using Matter.js physic engine. The overall purpose is to demonstrate the realistic interactions between objects with other object and the world that they are in. Each round have their own winning conditions and is simple and easy to get the hang of. Most rounds' user interaction comes from use of drag and drop type play, with exceptions with use of keyboard input. Even the stage selection is an unique experience with orbs representing the rounds and user place them inside the designated area to start that round.
 
 ## **Game Basics**
 
